@@ -20,6 +20,7 @@ import 'plugins/plugin_manager.dart';
 import 'dart:convert';
 import 'pages/reminder_details_page.dart';
 import 'pages/main_tab_screen.dart';
+import 'vowifi/inbox_page.dart';
 
 import 'utils/migration_helper.dart';
 import 'utils/locale_utils.dart';
@@ -199,6 +200,14 @@ class _MyAppState extends State<MyApp> {
     DeepLinkService().pendingLpa.addListener(_onPendingLpaChanged);
     // Check initial state
     _onPendingLpaChanged();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      try {
+        final payload = await LocalNotificationService().getLaunchPayload();
+        if (mounted && payload != null) _handleNotificationPayload(payload);
+      } catch (_) {
+        _log.warning('Could not read the notification launch action');
+      }
+    });
   }
 
   @override
@@ -230,6 +239,16 @@ class _MyAppState extends State<MyApp> {
   void _handleNotificationPayload(String payload) {
     try {
       final Map<String, dynamic> data = jsonDecode(payload);
+      if (data['type'] == 'vowifi_sms' && PlatformX.isIOS) {
+        final lineKey = data['lineKey'];
+        if (lineKey is! String || lineKey.isEmpty) return;
+        navigatorKey.currentState?.push(
+          MaterialPageRoute<void>(
+            builder: (_) => VoWifiInboxPage(lineKey: lineKey),
+          ),
+        );
+        return;
+      }
       final String? iccid = data['iccid'];
       final String? eid = data['eid'];
 

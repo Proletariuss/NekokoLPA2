@@ -11,6 +11,9 @@ import 'dart:math';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:async';
 import '../utils/platform_adapter.dart';
+import '../l10n/app_localizations.dart';
+import '../settings/app_settings.dart';
+import '../utils/locale_utils.dart';
 
 class LocalNotificationService {
   static final LocalNotificationService _instance =
@@ -18,10 +21,14 @@ class LocalNotificationService {
   factory LocalNotificationService() => _instance;
   LocalNotificationService._internal();
 
+  @visibleForTesting
+  LocalNotificationService.forTesting();
+
   final fln.FlutterLocalNotificationsPlugin _notificationsPlugin =
       fln.FlutterLocalNotificationsPlugin();
   final Logger _log = Logger('LocalNotificationService');
   bool _initialized = false;
+  Future<void>? _initialization;
 
   // Stream for notification taps
   final _payloadController = StreamController<String?>.broadcast();
@@ -33,9 +40,14 @@ class LocalNotificationService {
   Stream<ForegroundNotification> get foregroundNotificationStream =>
       _foregroundNotificationController.stream;
 
-  Future<void> init() async {
-    if (_initialized) return;
+  Future<void> init() {
+    if (_initialized) return Future<void>.value();
+    return _initialization ??= _initialize().whenComplete(() {
+      _initialization = null;
+    });
+  }
 
+  Future<void> _initialize() async {
     const fln.AndroidInitializationSettings initializationSettingsAndroid =
         fln.AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -73,13 +85,66 @@ class LocalNotificationService {
     await _notificationsPlugin.initialize(
       settings: initializationSettings,
       onDidReceiveNotificationResponse: (details) {
-        _log.info('Notification clicked: ${details.payload}');
+        _log.info('Notification opened');
         _payloadController.add(details.payload);
       },
     );
 
     _initialized = true;
     _log.info('LocalNotificationService initialized');
+  }
+
+  /// Ask from the Connect action; delivery never prompts for authorization.
+  Future<bool> requestVoWifiSmsPermission() async {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.iOS) return false;
+    await init();
+    return await _notificationsPlugin
+            .resolvePlatformSpecificImplementation<
+              fln.IOSFlutterLocalNotificationsPlugin
+            >()
+            ?.requestPermissions(alert: true, badge: false, sound: true) ??
+        false;
+  }
+
+  Future<String?> getLaunchPayload() async {
+    if (kIsWeb) return null;
+    await init();
+    final launch = await _notificationsPlugin.getNotificationAppLaunchDetails();
+    return launch?.didNotificationLaunchApp == true
+        ? launch?.notificationResponse?.payload
+        : null;
+  }
+
+  /// Presentation of an already committed SMS, without its sender or content.
+  Future<void> showVoWifiSms({
+    required int messageId,
+    required String lineKey,
+  }) async {
+    if (kIsWeb || defaultTargetPlatform != TargetPlatform.iOS) return;
+    await init();
+    final locale = resolveSupportedLocale(
+      localeFromPreference(AppSettings().locale) ??
+          PlatformDispatcher.instance.locale,
+      AppLocalizations.supportedLocales,
+    );
+    final l10n = await AppLocalizations.delegate.load(locale);
+    await _notificationsPlugin.show(
+      // Existing reminder IDs are below 100,000.
+      id: 0x40000000 | (messageId & 0x3fffffff),
+      title: l10n.voWifiNewWiFiSMS,
+      body: l10n.voWifiOpenToReadYourMessage,
+      notificationDetails: const fln.NotificationDetails(
+        iOS: fln.DarwinNotificationDetails(
+          presentAlert: true,
+          presentBanner: true,
+          presentList: true,
+          presentSound: true,
+          presentBadge: false,
+          threadIdentifier: 'vowifi.sms',
+        ),
+      ),
+      payload: jsonEncode({'type': 'vowifi_sms', 'lineKey': lineKey}),
+    );
   }
 
   Future<bool> checkPermission() async {

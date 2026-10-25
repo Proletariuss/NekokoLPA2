@@ -1109,6 +1109,20 @@ class AppSettings extends ChangeNotifier {
       _iconRedactionMode == IconRedactionMode.none &&
       _flagRedactionMode == FlagRedactionMode.none;
 
+  /// Shared display-only privacy state for profile and Wi-Fi calling pages.
+  bool get isSensitiveDataMasked =>
+      !_revealSensitiveProfileData && !hasNoRedactionsConfigured;
+
+  Future<void> toggleSensitiveDataVisibility() async {
+    if (_revealSensitiveProfileData) {
+      setRevealSensitiveProfileData(false);
+    } else if (hasNoRedactionsConfigured) {
+      await applyQuickRedactionPreset();
+    } else {
+      setRevealSensitiveProfileData(true);
+    }
+  }
+
   Future<void> applyQuickRedactionPreset() async {
     _revealSensitiveProfileData = false;
     _redactEidFirst = true;

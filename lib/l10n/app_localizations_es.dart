@@ -2340,4 +2340,616 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get qrtrReaderSubtitle =>
       'Qualcomm\'s low-level modem protocol (requires Shizuku)';
+
+  @override
+  String get voWifiCallHistory => 'Call history';
+
+  @override
+  String get voWifiRefreshCallHistory => 'Refresh call history';
+
+  @override
+  String get voWifiKeypad => 'Keypad';
+
+  @override
+  String get voWifiAllCalls => 'All calls';
+
+  @override
+  String get voWifiMissed => 'Missed';
+
+  @override
+  String get voWifiCouldNotLoadCallHistoryPullDownToRetry =>
+      'Could not load call history. Pull down to retry.';
+
+  @override
+  String get voWifiNoCallHistoryYet => 'No call history yet';
+
+  @override
+  String get voWifiCompleted => 'Completed';
+
+  @override
+  String get voWifiInCall => 'In call';
+
+  @override
+  String get voWifiFailed => 'Failed';
+
+  @override
+  String get voWifiDeclinedBusy => 'Declined / busy';
+
+  @override
+  String get voWifiNotAnswered => 'Not answered';
+
+  @override
+  String get voWifiInterruptedFinalStateUnknown =>
+      'Interrupted · final state unknown';
+
+  @override
+  String get voWifiConnecting => 'Connecting';
+
+  @override
+  String get voWifiIncoming => 'Incoming';
+
+  @override
+  String get voWifiOutgoing => 'Outgoing';
+
+  @override
+  String get voWifiUnknownCaller => 'Unknown caller';
+
+  @override
+  String get voWifiDuration => 'Duration';
+
+  @override
+  String get voWifiUseNumberInDialer => 'Use number in dialer';
+
+  @override
+  String get voWifiFilterMessages => 'Filter messages';
+
+  @override
+  String get voWifiAll => 'All';
+
+  @override
+  String get voWifiInbox => 'Inbox';
+
+  @override
+  String get voWifiSent => 'Sent';
+
+  @override
+  String get voWifiUnhideToSearch => 'Unhide to search';
+
+  @override
+  String get voWifiSearch => 'Search';
+
+  @override
+  String get voWifiNewMessage => 'New message';
+
+  @override
+  String get voWifiMessages => 'Messages';
+
+  @override
+  String get voWifiCouldNotLoadMessagesPullDownToRetry =>
+      'Could not load messages. Pull down to retry.';
+
+  @override
+  String get voWifiNoConversations => 'No conversations';
+
+  @override
+  String get voWifiNoReceivedMessagesYet => 'No received messages yet';
+
+  @override
+  String get voWifiNoSentMessagesYet => 'No sent messages yet';
+
+  @override
+  String get voWifiConnectWiFiCallingAndKeepTheAppIn =>
+      'Connect Wi-Fi calling and keep the app in the foreground to receive calls and SMS.';
+
+  @override
+  String get voWifiMessageHidden => 'Message hidden';
+
+  @override
+  String get voWifiYesterday => 'Yesterday';
+
+  @override
+  String get voWifiConversations => 'Conversations';
+
+  @override
+  String get voWifiReply => 'Reply';
+
+  @override
+  String get voWifiReceived => 'Received';
+
+  @override
+  String get voWifiSubmittedDeliveryUnconfirmed =>
+      'Submitted, delivery unconfirmed';
+
+  @override
+  String get voWifiSubmitting => 'Submitting';
+
+  @override
+  String get voWifiRecents => 'Recents';
+
+  @override
+  String get voWifiCall => 'Call';
+
+  @override
+  String get voWifiDeleteDigit => 'Delete digit';
+
+  @override
+  String get voWifiIdle => 'Idle';
+
+  @override
+  String get voWifiCalling => 'Calling';
+
+  @override
+  String get voWifiRinging => 'Ringing';
+
+  @override
+  String get voWifiIncomingCall => 'Incoming call';
+
+  @override
+  String get voWifiEndingCall => 'Ending call';
+
+  @override
+  String get voWifiCallEnded => 'Call ended';
+
+  @override
+  String get voWifiDeclined => 'Declined';
+
+  @override
+  String get voWifiBusy => 'Busy';
+
+  @override
+  String get voWifiSubmitted => 'Submitted';
+
+  @override
+  String get voWifiWiFiCalling => 'Wi-Fi calling';
+
+  @override
+  String get voWifiDial => 'Dial';
+
+  @override
+  String get voWifiBack => 'Back';
+
+  @override
+  String get voWifiConnectionSettings => 'Connection settings';
+
+  @override
+  String get voWifiConnectionOverview => 'Connection overview';
+
+  @override
+  String get voWifiOverview => 'Overview';
+
+  @override
+  String get voWifiRecentCalls => 'Recent calls';
+
+  @override
+  String get voWifiIncomingOutgoingAndMissed => 'Incoming, outgoing and missed';
+
+  @override
+  String get voWifiGroupedBySIMAndNumber => 'Grouped by SIM and number';
+
+  @override
+  String get voWifiUSBCCIDSmartCardReader => 'USB CCID smart-card reader';
+
+  @override
+  String get voWifiBluetoothSIMReader => 'Bluetooth SIM reader';
+
+  @override
+  String get voWifiMyNumber => 'My number';
+
+  @override
+  String get voWifiCopied => 'Copied';
+
+  @override
+  String get voWifiCopyMyNumber => 'Copy my number';
+
+  @override
+  String get voWifiTheCarrierHasNotSuppliedAPhoneNumber =>
+      'The carrier has not supplied a phone number';
+
+  @override
+  String get voWifiConnectionDetails => 'Connection details';
+
+  @override
+  String get voWifiStoppingWiFiCalling => 'Stopping Wi-Fi calling…';
+
+  @override
+  String get voWifiPleaseWait => 'Please wait…';
+
+  @override
+  String get voWifiStopWiFiCalling => 'Stop Wi-Fi calling';
+
+  @override
+  String get voWifiConnect => 'Connect';
+
+  @override
+  String get voWifiCarrierSettingsAreDetectedFromTheActiveSIM =>
+      'Carrier settings are detected from the active SIM';
+
+  @override
+  String get voWifiEPDGHostOptional => 'ePDG host (optional)';
+
+  @override
+  String get voWifiProxyURLOptional => 'Proxy URL (optional)';
+
+  @override
+  String get voWifi127001RefersToThisIPhoneNot =>
+      '127.0.0.1 refers to this iPhone, not your Mac. To use a proxy on your Mac, enter its LAN address.';
+
+  @override
+  String get voWifiIMEIOptional => 'IMEI (optional)';
+
+  @override
+  String get voWifiStopWiFiCallingBeforeManagingProfilesOrChanging =>
+      'Stop Wi-Fi calling before managing profiles or changing readers.';
+
+  @override
+  String get voWifiCallsUseTheIPhoneSystemCallScreenReaderSMS =>
+      'Calls use the iPhone system call screen. Reader SMS is stored separately from Apple Messages. iOS may pause an idle connection after backgrounding or locking. Returning to the foreground or changing networks checks the connection and reconnects when needed; new calls and SMS wait for verification. Force-quitting ends the session, so reconnect manually after reopening.';
+
+  @override
+  String get voWifiPhoneNumber => 'Phone number';
+
+  @override
+  String get voWifiCountryCodeAndNumber => '+ country code and number';
+
+  @override
+  String get voWifiHideKeyboard => 'Hide keyboard';
+
+  @override
+  String get voWifiCalls => 'Calls';
+
+  @override
+  String get voWifiReadyForIncomingCallsSystemAnswerDecline =>
+      'Ready for incoming calls · system Answer / Decline';
+
+  @override
+  String get voWifiConnectWiFiCallingToReceiveCalls =>
+      'Connect Wi-Fi calling to receive calls';
+
+  @override
+  String get voWifiCallHistoryCouldNotBeSavedOnThisDevice =>
+      'Call history could not be saved on this device';
+
+  @override
+  String get voWifiIncomingOutgoingAndMissedCalls =>
+      'Incoming, outgoing and missed calls';
+
+  @override
+  String get voWifiAllMessages => 'All messages';
+
+  @override
+  String get voWifiYourRecentReaderMessagesWillAppearHere =>
+      'Your recent reader messages will appear here.';
+
+  @override
+  String get voWifiStoredOnThisDeviceSubmittedMessagesAreNotConfirmed =>
+      'Stored on this device. Submitted messages are not confirmed delivered.';
+
+  @override
+  String get voWifiMessage => 'Message';
+
+  @override
+  String get voWifiWriteAMessage => 'Write a message…';
+
+  @override
+  String get voWifiSending => 'Sending…';
+
+  @override
+  String get voWifiSendSMS => 'Send SMS';
+
+  @override
+  String get voWifiTo => 'To';
+
+  @override
+  String get voWifiFrom => 'From';
+
+  @override
+  String get voWifiAudioConnected => 'Audio connected';
+
+  @override
+  String get voWifiAnswer => 'Answer';
+
+  @override
+  String get voWifiDecline => 'Decline';
+
+  @override
+  String get voWifiHangUp => 'Hang up';
+
+  @override
+  String get voWifiReader => 'Reader';
+
+  @override
+  String get voWifiReady => 'Ready';
+
+  @override
+  String get voWifiComplete => 'complete';
+
+  @override
+  String get voWifiFailed2 => 'failed';
+
+  @override
+  String get voWifiInProgress => 'in progress';
+
+  @override
+  String get voWifiWaiting => 'waiting';
+
+  @override
+  String get voWifiWiFiCallingConnectionProgress =>
+      'Wi-Fi calling connection progress';
+
+  @override
+  String get voWifiCheckingConnection => 'Checking connection…';
+
+  @override
+  String get voWifiReadingTheActiveSIM => 'Reading the active SIM…';
+
+  @override
+  String get voWifiPreparingEPDGNetworkPath => 'Preparing ePDG network path…';
+
+  @override
+  String get voWifiWaitingForTheFirstEPDGResponse =>
+      'Waiting for the first ePDG response…';
+
+  @override
+  String get voWifiWaitingForCarrierAuthentication =>
+      'Waiting for carrier authentication…';
+
+  @override
+  String get voWifiRespondingToCarrierIdentityRequest =>
+      'Responding to carrier identity request…';
+
+  @override
+  String get voWifiProcessingSIMAKAAuthentication =>
+      'Processing SIM AKA authentication…';
+
+  @override
+  String get voWifiWaitingForCarrierAuthenticationResult =>
+      'Waiting for carrier authentication result…';
+
+  @override
+  String get voWifiConfirmingTheAuthenticatedTunnel =>
+      'Confirming the authenticated tunnel…';
+
+  @override
+  String get voWifiPreparingTheEncryptedTunnel =>
+      'Preparing the encrypted tunnel…';
+
+  @override
+  String get voWifiConnectingToTheCarrierEPDG =>
+      'Connecting to the carrier ePDG…';
+
+  @override
+  String get voWifiRegisteringWithIMS => 'Registering with IMS…';
+
+  @override
+  String get voWifiIMSRegistered => 'IMS registered';
+
+  @override
+  String get voWifiWaitingForIMSRegistration => 'Waiting for IMS registration…';
+
+  @override
+  String get voWifiConnectionInterruptedRetrying =>
+      'Connection interrupted; retrying…';
+
+  @override
+  String get voWifiConnectionFailed => 'Connection failed';
+
+  @override
+  String get voWifiSessionStoppedWhileTheAppWasInTheBackground =>
+      'Session stopped while the app was in the background';
+
+  @override
+  String get voWifiDisconnected => 'Disconnected';
+
+  @override
+  String get voWifiReadyToConnectWithTheActiveSIM =>
+      'Ready to connect with the active SIM';
+
+  @override
+  String get voWifiShowSensitiveInformation => 'Show sensitive information';
+
+  @override
+  String get voWifiHideSensitiveInformation => 'Hide sensitive information';
+
+  @override
+  String get voWifiTheActionCouldNotBeCompletedTryAgain =>
+      'The action could not be completed. Try again.';
+
+  @override
+  String get voWifiSpeaker => 'Speaker';
+
+  @override
+  String get voWifiMute => 'Mute';
+
+  @override
+  String get voWifiHideKeypad => 'Hide keypad';
+
+  @override
+  String get voWifiEndCall => 'End call';
+
+  @override
+  String get voWifiDeleteRecords => 'Delete records?';
+
+  @override
+  String get voWifiCancel => 'Cancel';
+
+  @override
+  String get voWifiDelete => 'Delete';
+
+  @override
+  String get voWifiCouldNotUpdateRecordsTryAgain =>
+      'Could not update records. Try again.';
+
+  @override
+  String get voWifiDone => 'Done';
+
+  @override
+  String get voWifiEdit => 'Edit';
+
+  @override
+  String get voWifiDeselectAll => 'Deselect all';
+
+  @override
+  String get voWifiSelectAll => 'Select all';
+
+  @override
+  String get voWifiDeleteSelected => 'Delete selected';
+
+  @override
+  String get voWifiRead => 'Read';
+
+  @override
+  String voWifiDeleteRecordCount(int count) {
+    return 'Delete the $count selected records from this device? This cannot be undone.';
+  }
+
+  @override
+  String voWifiSelectedRecordCount(int count) {
+    return '$count records selected';
+  }
+
+  @override
+  String get voWifiIMEIMustContain15Digits => 'IMEI must contain 15 digits';
+
+  @override
+  String get voWifiIMEIMustHave15DigitsAndAValidCheck =>
+      'IMEI must have 15 digits and a valid check digit';
+
+  @override
+  String get voWifiCouldNotSaveWiFiCallingSettings =>
+      'Could not save Wi-Fi calling settings';
+
+  @override
+  String get voWifiTheNativeWiFiCallingEngineIsUnavailableIn =>
+      'The native Wi-Fi calling engine is unavailable in this build';
+
+  @override
+  String get voWifiCallKitRejectedTheTransactionBecauseTheAppNeedsThe =>
+      'CallKit rejected the transaction because the app needs the VoIP background mode.';
+
+  @override
+  String get voWifiAWiFiCallingSessionIsAlreadyActive =>
+      'A Wi-Fi calling session is already active';
+
+  @override
+  String get voWifiThisReaderDoesNotSupportWiFiCalling =>
+      'This reader does not support Wi-Fi calling';
+
+  @override
+  String get voWifiConnectThisReaderInManageBeforeStartingWiFi =>
+      'Connect this reader in Manage before starting Wi-Fi calling';
+
+  @override
+  String get voWifiTheSIMReaderDisconnected => 'The SIM reader disconnected';
+
+  @override
+  String get voWifiTheActiveSIMDidNotProvideAnIMSI =>
+      'The active SIM did not provide an IMSI';
+
+  @override
+  String get voWifiWiFiCallingIsNotReady => 'Wi-Fi calling is not ready';
+
+  @override
+  String get voWifiIMSMessagingIsNotRegistered =>
+      'IMS messaging is not registered';
+
+  @override
+  String get voWifiSIMSessionChanged => 'SIM session changed';
+
+  @override
+  String get voWifiSIMSessionHasEnded => 'SIM session has ended';
+
+  @override
+  String get voWifiSIMSessionWasCancelled => 'SIM session was cancelled.';
+
+  @override
+  String get voWifiIncomingSMSCouldNotBeSavedOnThisDevice =>
+      'Incoming SMS could not be saved on this device';
+
+  @override
+  String get voWifiMicrophonePermissionIsRequiredToMakeACall =>
+      'Microphone permission is required to make a call.';
+
+  @override
+  String get voWifiOpenTheAppToConnectVoWiFi =>
+      'Open the app to connect VoWiFi.';
+
+  @override
+  String get voWifiStopTheCurrentVoWiFiSessionBeforeConnecting =>
+      'Stop the current VoWiFi session before connecting.';
+
+  @override
+  String get voWifiConnectionCancelled => 'Connection cancelled.';
+
+  @override
+  String get voWifiTheSIMReaderDidNotAnswerWithin30Seconds =>
+      'The SIM reader did not answer within 30 seconds.';
+
+  @override
+  String get voWifiNewWiFiSMS => 'New Wi-Fi SMS';
+
+  @override
+  String get voWifiOpenToReadYourMessage =>
+      'Open the app to read your message.';
+
+  @override
+  String get voWifiReaderInUse =>
+      'Wi-Fi calling is using the reader. Stop it before managing profiles.';
+
+  @override
+  String get voWifiCouldNotConfirmConnectionState =>
+      'Could not confirm the current connection state';
+
+  @override
+  String get voWifiCannotCorrectSIMCommandLength =>
+      'Cannot correct SIM command length';
+
+  @override
+  String get voWifiIncompleteSIMResponse => 'Incomplete SIM response';
+
+  @override
+  String get voWifiInvalidSIMCommandBatch => 'Invalid SIM command batch';
+
+  @override
+  String get voWifiInvalidSIMCommandBatchSize =>
+      'Invalid SIM command batch size';
+
+  @override
+  String get voWifiInvalidSIMCommandEncoding => 'Invalid SIM command encoding';
+
+  @override
+  String get voWifiInvalidWiFiCallingResponse =>
+      'Invalid Wi-Fi calling response';
+
+  @override
+  String get voWifiInvalidIncomingSMSSegments =>
+      'Invalid incoming SMS segments';
+
+  @override
+  String get voWifiSIMResponseExceedsSizeLimit =>
+      'SIM response exceeds size limit';
+
+  @override
+  String get voWifiTheSIMReaderDidNotReconnectPleaseRetry =>
+      'The SIM reader did not reconnect. Please retry.';
+
+  @override
+  String get voWifiTheSIMReaderDisconnectedReconnectItAndTryWi =>
+      'The SIM reader disconnected. Reconnect it and try Wi-Fi calling again.';
+
+  @override
+  String get voWifiTheNativeEngineReportedAnError =>
+      'The native engine reported an error';
+
+  @override
+  String get voWifiTooManySIMResponseContinuations =>
+      'Too many SIM response continuations';
+
+  @override
+  String get voWifiUnknownWiFiCallingCallback =>
+      'Unknown Wi-Fi calling callback';
+
+  @override
+  String voWifiSimStatus(String status) {
+    return 'SIM status $status';
+  }
 }

@@ -5,13 +5,17 @@ import Foundation
 
 extension String {
     var hexadecimal: Data? {
+        guard !isEmpty, count.isMultiple(of: 2), count <= 131080,
+            allSatisfy({ $0.isHexDigit && $0.isASCII })
+        else { return nil }
         var data = Data(capacity: count / 2)
 
-        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
-        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
-            let byteString = (self as NSString).substring(with: match!.range)
-            let num = UInt8(byteString, radix: 16)!
-            data.append(num)
+        var cursor = startIndex
+        while cursor < endIndex {
+            let next = index(cursor, offsetBy: 2)
+            guard let byte = UInt8(self[cursor..<next], radix: 16) else { return nil }
+            data.append(byte)
+            cursor = next
         }
 
         guard data.count > 0 else { return nil }
@@ -28,6 +32,9 @@ extension Data {
 
 public class CcidPlugin: NSObject, FlutterPlugin {
     var cards: [String: TKSmartCard] = [:]
+    // Retain SELECT/AUTHENTICATE state for the duration of a VoWiFi lease.
+    private var retainedSessions: Set<String> = []
+    private var busyReaders: Set<String> = []
 
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "ccid", binaryMessenger: registrar.messenger())
@@ -67,7 +74,14 @@ public class CcidPlugin: NSObject, FlutterPlugin {
             result(slotATRMap)
 
         case "connect":
-            let reader = call.arguments as! String
+            guard let reader = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "无效的读卡器名称", details: nil))
+                return
+            }
+            guard cards[reader] == nil, !busyReaders.contains(reader) else {
+                result(FlutterError(code: "ALREADY_CONNECTED", message: "请先断开旧读卡会话", details: nil))
+                return
+            }
             let manager = TKSmartCardSlotManager.default
             if let slot = manager?.slotNamed(reader) {
                 if let card = slot.makeSmartCard() {
@@ -80,39 +94,114 @@ public class CcidPlugin: NSObject, FlutterPlugin {
                 result(FlutterError(code: "INVALID_READER", message: "Invalid reader name", details: nil))
             }
 
-        case "transceive":
-            let args = call.arguments as! [String: Any?]
-            let reader = args["reader"] as! String
-            let capdu = args["capdu"] as! String
-            let capduData = capdu.hexadecimal!
-            
-            if (cards[reader] == nil) {
-                result(nil)
-            } else {
-                let card = cards[reader]!
-                if card.isValid {
-                    card.beginSession { (success, error) in
-                        if !success {
-                            result(self.mapTKError(error!, defaultCode: "BEGIN_SESSION_ERROR"))
-                            return
-                        }
-                        card.transmit(capduData) { (rapdu, error) in
-                            if let rapdu = rapdu {
-                                result(rapdu.hexadecimal)
-                            } else {
-                                result(self.mapTKError(error!, defaultCode: "TRANSMIT_ERROR"))
-                            }
-                            card.endSession()
-                        }
+        case "beginSession":
+            guard let reader = call.arguments as? String,
+                let card = cards[reader], card.isValid
+            else {
+                result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器未连接", details: nil))
+                return
+            }
+            guard !busyReaders.contains(reader), !retainedSessions.contains(reader) else {
+                result(FlutterError(code: "READER_BUSY", message: "读卡器正忙", details: nil))
+                return
+            }
+            busyReaders.insert(reader)
+            card.beginSession { success, error in
+                DispatchQueue.main.async {
+                    self.busyReaders.remove(reader)
+                    guard success else {
+                        result(self.mapTKError(error, defaultCode: "BEGIN_SESSION_ERROR"))
+                        return
                     }
-                } else {
-                    cards.removeValue(forKey: reader)
+                    guard self.cards[reader] === card else {
+                        card.endSession()
+                        result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器已断开", details: nil))
+                        return
+                    }
+                    self.retainedSessions.insert(reader)
                     result(nil)
                 }
             }
 
+        case "endSession":
+            guard let reader = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "无效的读卡器名称", details: nil))
+                return
+            }
+            if retainedSessions.remove(reader) != nil, !busyReaders.contains(reader) {
+                cards[reader]?.endSession()
+            }
+            result(nil)
+
+        case "transceive":
+            guard let args = call.arguments as? [String: Any],
+                let reader = args["reader"] as? String,
+                let capdu = args["capdu"] as? String,
+                let capduData = capdu.hexadecimal, capduData.count >= 4
+            else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "无效的 APDU", details: nil))
+                return
+            }
+            guard !busyReaders.contains(reader) else {
+                result(FlutterError(code: "READER_BUSY", message: "读卡器正忙", details: nil))
+                return
+            }
+
+            if cards[reader] == nil {
+                result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器未连接", details: nil))
+            } else {
+                let card = cards[reader]!
+                if card.isValid {
+                    busyReaders.insert(reader)
+                    if retainedSessions.contains(reader) {
+                        transmitRetained(card, reader: reader, data: capduData, result: result)
+                        return
+                    }
+                    card.beginSession { (success, error) in
+                        DispatchQueue.main.async {
+                            if !success {
+                                self.busyReaders.remove(reader)
+                                result(self.mapTKError(error, defaultCode: "BEGIN_SESSION_ERROR"))
+                                return
+                            }
+                            guard self.cards[reader] === card else {
+                                self.busyReaders.remove(reader)
+                                card.endSession()
+                                result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器已断开", details: nil))
+                                return
+                            }
+                            card.transmit(capduData) { (rapdu, error) in
+                                DispatchQueue.main.async {
+                                    self.busyReaders.remove(reader)
+                                    card.endSession()
+                                    guard self.cards[reader] === card else {
+                                        result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器已断开", details: nil))
+                                        return
+                                    }
+                                    if let rapdu = rapdu {
+                                        result(rapdu.hexadecimal)
+                                    } else {
+                                        result(self.mapTKError(error, defaultCode: "TRANSMIT_ERROR"))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    if retainedSessions.remove(reader) != nil { card.endSession() }
+                    cards.removeValue(forKey: reader)
+                    result(FlutterError(code: "DISCONNECTED", message: "USB 卡片已失效，请重新连接", details: nil))
+                }
+            }
+
         case "disconnect":
-            let reader = call.arguments as! String
+            guard let reader = call.arguments as? String else {
+                result(FlutterError(code: "INVALID_ARGUMENT", message: "无效的读卡器名称", details: nil))
+                return
+            }
+            if retainedSessions.remove(reader) != nil, !busyReaders.contains(reader) {
+                cards[reader]?.endSession()
+            }
             cards.removeValue(forKey: reader)
             result(nil)
 
@@ -121,7 +210,30 @@ public class CcidPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func mapTKError(_ error: Error, defaultCode: String) -> FlutterError {
+    private func transmitRetained(
+        _ card: TKSmartCard, reader: String, data: Data, result: @escaping FlutterResult
+    ) {
+        card.transmit(data) { response, error in
+            DispatchQueue.main.async {
+                self.busyReaders.remove(reader)
+                if !self.retainedSessions.contains(reader) { card.endSession() }
+                guard self.cards[reader] === card else {
+                    result(FlutterError(code: "DISCONNECTED", message: "USB 读卡器已断开", details: nil))
+                    return
+                }
+                if let response {
+                    result(response.hexadecimal)
+                } else {
+                    result(self.mapTKError(error, defaultCode: "TRANSMIT_ERROR"))
+                }
+            }
+        }
+    }
+
+    private func mapTKError(_ optionalError: Error?, defaultCode: String) -> FlutterError {
+        guard let error = optionalError else {
+            return FlutterError(code: defaultCode, message: "读卡器通信中断", details: nil)
+        }
         let nsError = error as NSError
         if nsError.domain == TKErrorDomain {
             switch nsError.code {

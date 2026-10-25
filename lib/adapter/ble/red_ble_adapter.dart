@@ -60,6 +60,7 @@ class RedBleAdapter extends BaseAdapter implements BleAdapter {
             log.warning("RedBle disconnected unexpectedly");
             _txChar = null;
             _rxChar = null;
+            updateConnectedReader(null);
             _stateController.add(EuiccPortState.closed);
           }
         });

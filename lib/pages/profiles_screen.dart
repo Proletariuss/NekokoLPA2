@@ -72,6 +72,9 @@ import '../widgets/profiles_screen/profiles_header.dart';
 import '../services/deep_link_service.dart';
 import '../services/connectivity_service.dart';
 import '../widgets/log_console.dart';
+import '../vowifi/vowifi_page.dart';
+import '../vowifi/vowifi_service.dart';
+import '../vowifi/session_owner.dart';
 
 enum ReaderStatus {
   idle,
@@ -494,9 +497,70 @@ class _ProfilesScreenState extends State<ProfilesScreen>
     }
   }
 
+  bool get _voWifiOwnsReader =>
+      VoWifiSessionOwner.instance.activeService != null;
+
+  bool _rejectVoWifiConflict() {
+    if (!_voWifiOwnsReader) return false;
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context)!.voWifiReaderInUse),
+        ),
+      );
+    }
+    return true;
+  }
+
+  bool _voWifiWasActive = false;
+  void _onVoWifiChanged() {
+    final active = _voWifiOwnsReader;
+    final released = _voWifiWasActive && !active;
+    _voWifiWasActive = active;
+    if (!mounted) return;
+    setState(() {});
+    if (released) {
+      // Resume deferred eSIM notifications outside the SIM reservation zone.
+      Zone.root.run(() {
+        unawaited(
+          _loadPendingNotificationCount().catchError((Object error) {
+            _log.warning('Post-Wi-Fi-calling notification refresh failed');
+          }),
+        );
+      });
+    }
+  }
+
+  void _openVoWifi() {
+    final active = VoWifiSessionOwner.instance.activeService;
+    final reader = active?.reader ?? _selectedReader;
+    if (!PlatformX.isIOS || reader == null || !VoWifiService.supports(reader)) {
+      return;
+    }
+    String? iccid;
+    for (final profile in _profiles ?? <EuiccProfile>[]) {
+      if (profile.enabled) {
+        iccid = profile.iccid;
+        break;
+      }
+    }
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (_) => VoWifiPage(
+          adapter: active?.adapter ?? _adapter,
+          reader: reader,
+          profileIccid: iccid,
+          service: active,
+        ),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
+    _voWifiWasActive = _voWifiOwnsReader;
+    VoWifiSessionOwner.instance.addListener(_onVoWifiChanged);
     WidgetsBinding.instance.addObserver(this);
     _manager = ProfileManager(_adapter);
     for (var plugin in BuildPluginRegistry.createSessionPlugins()) {
@@ -572,6 +636,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
 
   @override
   void dispose() {
+    VoWifiSessionOwner.instance.removeListener(_onVoWifiChanged);
     WidgetsBinding.instance.removeObserver(this);
     _deepLinkSub?.cancel();
     DeepLinkService().pendingLpa.removeListener(_onPendingLpaChanged);
@@ -646,6 +711,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _fetchEidForReaderSilently(Reader reader) async {
+    if (_voWifiOwnsReader) return;
     try {
       await _adapter.runExclusive(() async {
         // Connect specifically for fetching EID
@@ -799,6 +865,8 @@ class _ProfilesScreenState extends State<ProfilesScreen>
 
     // Update local count from DB first for speed
     await _refreshPendingCountFromDb();
+
+    if (_voWifiOwnsReader) return;
 
     // Trigger background sync if card available
     if (_selectedReader != null) {
@@ -997,6 +1065,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
     bool skipLoading = false,
     bool force = false,
   }) async {
+    if (_voWifiOwnsReader) return;
     if (!skipLoading && mounted) {
       setState(() {
         _loading = true;
@@ -1181,6 +1250,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _switchEstkSlot() async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
 
@@ -1247,6 +1317,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _selectReader(Reader reader) async {
+    if (_rejectVoWifiConflict()) return;
     _restoredReaders.remove(reader.id);
     if (_selectedReader?.id == reader.id) {
       // Picking the reader that is already selected is how a user retries one
@@ -1348,6 +1419,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _handleDisconnectAndRemove() async {
+    if (_rejectVoWifiConflict()) return;
     if (_selectedReader == null) return;
     final reader = _selectedReader!;
 
@@ -1389,6 +1461,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _refreshDeviceList() async {
+    if (_rejectVoWifiConflict()) return;
     _autoDiscoveryFinished = false;
     _autoSwitchTriedReaders.clear();
 
@@ -1445,6 +1518,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _hardReconnect() async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
 
@@ -1470,6 +1544,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
     int retryCount = 0,
     bool disableRetry = false,
   }) async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
     final l10n = AppLocalizations.of(context)!;
@@ -1896,6 +1971,14 @@ class _ProfilesScreenState extends State<ProfilesScreen>
 
     // Define all actions in order (right to left folding priority)
     final allActions = <Map<String, dynamic>>[
+      if (PlatformX.isIOS &&
+          (_voWifiOwnsReader || VoWifiService.supports(_selectedReader)))
+        {
+          'icon': Icons.wifi_calling_3,
+          'tooltip': AppLocalizations.of(context)!.voWifiWiFiCalling,
+          'onPressed': _openVoWifi,
+          'key': 'wifi_calling',
+        },
       if (_eid != null || _isUnsupported || _isAraMFailed)
         {
           'icon': revealIdentifiers
@@ -1918,6 +2001,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
           'icon': Icons.bluetooth_searching,
           'tooltip': AppLocalizations.of(context)!.scanBluetooth,
           'onPressed': () async {
+            if (_rejectVoWifiConflict()) return;
             if (kIsWeb) {
               final newReaderId = await BleManager().scanAndAddReaderForWeb();
               if (newReaderId != null && mounted) {
@@ -2248,6 +2332,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
     String? eid,
     Reader reader,
   ) async {
+    if (_voWifiOwnsReader) return;
     final settings = AppSettings();
     if (settings.notifProcessInitialLoad &&
         settings.isAnyNotificationProcessingEnabled) {
@@ -2300,6 +2385,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _toggleProfile(EuiccProfile p, bool enable) async {
+    if (_rejectVoWifiConflict()) return;
     final isProcessingNotifs = NotificationService().isProcessing.value;
     final isSwitching = _isSwitching || ProfilesScreen.isSwitchingGlobal;
 
@@ -2621,6 +2707,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _processNotificationsAfterVerifiedSwitch(Reader reader) async {
+    if (_voWifiOwnsReader) return;
     try {
       final settings = AppSettings();
       if (!settings.notifProcessAfterSwitch ||
@@ -2765,6 +2852,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   /// choice is not under the finger that just tapped confirm. Every profile on
   /// the card goes, so the second dialog spells out the count and the EID.
   Future<void> _purgeEuicc() async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
     final profileCount = _profiles?.length ?? 0;
@@ -2852,6 +2940,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _deleteProfile(EuiccProfile p) async {
+    if (_rejectVoWifiConflict()) return;
     final confirmed = await _showPremiumConfirmDialog(
       title: AppLocalizations.of(context)!.deleteProfile,
       message: AppLocalizations.of(
@@ -3074,6 +3163,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   /// Launches the TS.43 carrier-managed transfer wizard for [profile] and
   /// refreshes the profile list afterwards.
   Future<void> _handleTransfer(EuiccProfile profile) async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
     if (NotificationService().isProcessing.value) {
@@ -3310,6 +3400,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   void _handleDeepLinkDownload() async {
+    if (_rejectVoWifiConflict()) return;
     final code = _pendingDeepLinkCode;
     if (code == null) return;
 
@@ -3366,6 +3457,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   void _handlePendingSigning() async {
+    if (_rejectVoWifiConflict()) return;
     final uri = _pendingSigningUri;
     if (uri == null) return;
 
@@ -3447,6 +3539,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   void _handleDownload() async {
+    if (_rejectVoWifiConflict()) return;
     if (_selectedReader == null) return;
     if (NotificationService().isProcessing.value) {
       _showPremiumInfoDialog(
@@ -3475,6 +3568,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   void _handleBatchDownload(GlobalKey anchorKey) async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
     if (NotificationService().isProcessing.value) {
@@ -3527,6 +3621,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   /// Runs SM-DS (ES11) discovery on the selected reader, lets the user pick a
   /// pending profile, then downloads it through the normal download flow.
   Future<void> _handleDiscovery() async {
+    if (_rejectVoWifiConflict()) return;
     final reader = _selectedReader;
     if (reader == null) return;
 
@@ -3646,6 +3741,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _renameProfile(EuiccProfile profile) async {
+    if (_rejectVoWifiConflict()) return;
     final parsed = ProfileTagUtils.parse(profile.nickname);
     final TextEditingController nameController = TextEditingController(
       text: parsed.name,
@@ -4538,11 +4634,13 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   void _showEuiccInfoDialog() {
+    if (_rejectVoWifiConflict()) return;
     if (_info2 == null) return;
     EuiccInfoDialog.show(context, _info2!, configured: _configuredData);
   }
 
   void _showNxpInfoDialog() {
+    if (_rejectVoWifiConflict()) return;
     if (_eid == null || !_manager.nxpInfos.containsKey(_eid)) return;
     final nxpInfo = _manager.nxpInfos[_eid]!;
 
@@ -4602,6 +4700,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
   }
 
   Future<void> _connectRemoteReaders({bool silent = false}) async {
+    if (_rejectVoWifiConflict()) return;
     // Non-blocking background loading
     if (!silent && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -4872,6 +4971,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
           error: _error?.toString(),
           onRetry: _listProfiles,
           onRemove: () {
+            if (_rejectVoWifiConflict()) return;
             if (reader != null) {
               _adapter.removeReader(reader.id);
               _loadReaders(skipLoading: true);
@@ -4979,6 +5079,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
         final paddingV = isExtremelySmall ? 2.0 : 6.0;
 
         final isLocked =
+            _voWifiOwnsReader ||
             _isSwitching ||
             ProfilesScreen.isSwitchingGlobal ||
             _loading ||
@@ -5111,6 +5212,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
                     downloadButtonKey2: _downloadButtonKey2,
                     onReaderChanged: _selectReader,
                     onReaderRemove: (r) {
+                      if (_rejectVoWifiConflict()) return;
                       _adapter.removeReader(r.id);
                       _loadReaders(skipLoading: true);
                     },
@@ -5128,6 +5230,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
                         : null,
                     onNotifications: _eid != null
                         ? () async {
+                            if (_rejectVoWifiConflict()) return;
                             if (_selectedReader != null) {
                               await Navigator.push(
                                 context,
@@ -5142,7 +5245,7 @@ class _ProfilesScreenState extends State<ProfilesScreen>
                             }
                           }
                         : null,
-                    extraActions: _selectedReader == null
+                    extraActions: _selectedReader == null || _voWifiOwnsReader
                         ? []
                         : PluginManager().buildReaderActions(
                             context,

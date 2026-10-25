@@ -492,7 +492,10 @@ class CompositeAdapter extends BaseAdapter {
     }
 
     return await runExclusive(() async {
-      if (_connectedAdapter != null && _currentReader?.id == reader.id) {
+      if (_connectedAdapter != null &&
+          identical(_connectedAdapter, reader.source) &&
+          _currentReader?.id == reader.id &&
+          _connectedAdapter!.connectedReader?.id == reader.id) {
         _log.info("Already connected to ${reader.name}, skipping reconnect.");
         return;
       }
@@ -509,7 +512,7 @@ class CompositeAdapter extends BaseAdapter {
           connectProgress.value = delegate.connectProgress.value;
       delegate.connectProgress.addListener(relayProgress);
       try {
-        await delegate.connect(reader);
+        await delegate.runExclusive(() => delegate.connect(reader));
         _stateController.add(EuiccPortState.open);
       } catch (e) {
         // A failed or interrupted delegate connect can still own a partially
@@ -529,7 +532,8 @@ class CompositeAdapter extends BaseAdapter {
   Future<void> disconnect() async {
     return await runExclusive(() async {
       if (_connectedAdapter != null) {
-        await _connectedAdapter!.disconnect();
+        final delegate = _connectedAdapter!;
+        await delegate.runExclusive(delegate.disconnect);
         _connectedAdapter = null;
         _currentReader = null;
       }
@@ -559,7 +563,16 @@ class CompositeAdapter extends BaseAdapter {
       final adapter = _connectedAdapter;
       if (adapter == null) return;
       try {
-        await adapter.reconnect();
+        await adapter.runExclusive(() async {
+          // The selected reader survives a link drop; its transport does not.
+          final reader = _currentReader;
+          if (reader != null && adapter.connectedReader?.id != reader.id) {
+            await disconnect();
+            await connect(reader);
+          } else {
+            await adapter.reconnect();
+          }
+        });
       } catch (_) {
         // The delegate may already have disconnected before its reconnect
         // failed. Invalidate the reader fast path while retaining the delegate

@@ -63,6 +63,7 @@ class RedBle2Adapter extends BaseAdapter implements BleAdapter {
             log.warning("RedBle2 disconnected unexpectedly");
             _txChar = null;
             _rxChar = null;
+            updateConnectedReader(null);
             _stateController.add(EuiccPortState.closed);
           }
         });
@@ -243,7 +244,7 @@ class RedBle2Adapter extends BaseAdapter implements BleAdapter {
     int expectedLength = -1;
 
     _rxSub = _rxChar!.onValueReceived.listen((data) {
-      log.info("Received data: $data");
+      // APDU responses can contain SIM authentication keys; never log bytes.
       if (data.length >= _ccidHeaderLength &&
           data[7] & 0x80 == 0x80 &&
           data[1] == 0 &&

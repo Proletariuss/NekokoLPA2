@@ -38,6 +38,8 @@ dependencies:
   pointycastle: ^4.0.0
   ccid:
     path: local_packages/ccid
+  proletarius_vowifi:
+    path: local_packages/proletarius_vowifi
   shared_preferences: ^2.5.4
   http: ^1.2.0
   sqflite: ^2.4.1
@@ -94,7 +96,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   config:
-    disable-swift-package-manager: true
+    enable-swift-package-manager: false
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

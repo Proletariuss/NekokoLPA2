@@ -38,6 +38,16 @@
 	<string>Camera needs to be used to scan QR codes for installing eSIMs</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo needs to be used to scan QR codes for installing eSIMs</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Use the microphone for Wi-Fi calls through your connected SIM reader.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Connect Wi-Fi calling through a local proxy when you configure one.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>bluetooth-central</string>
+		<string>voip</string>
+	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

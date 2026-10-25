@@ -12,6 +12,27 @@ import '../plugins/session_plugin.dart';
 
 enum EuiccPortState { closed, open }
 
+/// A user operation must not silently execute later against a different SIM.
+class ReaderBusyException implements Exception {
+  const ReaderBusyException();
+
+  @override
+  String toString() =>
+      'The SIM reader is busy. Finish the current operation and try again.';
+}
+
+typedef ReaderMaintenanceRunner =
+    Future<void> Function(Future<void> Function() action);
+
+/// Transport keepalives may join a reservation's serialized APDU queue.
+abstract interface class CoordinatedReaderMaintenance {
+  void setMaintenanceRunner(ReaderMaintenanceRunner? runner);
+}
+
+class _ExclusiveOwner {
+  bool active = true;
+}
+
 class AdapterMode {
   final String id;
   final String label;
@@ -180,6 +201,22 @@ abstract class Adapter {
   /// Whether the adapter supports sending raw APDUs (e.g. to the basic channel).
   /// This is required for some features like VoWiFi.
   bool get supportsRawApdu;
+}
+
+extension AdapterExclusiveAdmission on Adapter {
+  bool get isExclusivelyBusy {
+    final adapter = this;
+    return adapter is BaseAdapter && adapter._isExclusivelyBusy;
+  }
+
+  /// Reject a busy reader without leaving a queued operation behind.
+  Future<T> runExclusiveNow<T>(Future<T> Function() action) {
+    final adapter = this;
+    if (adapter is! BaseAdapter) {
+      return Future<T>.error(const ReaderBusyException());
+    }
+    return adapter._runExclusive(action, wait: false);
+  }
 }
 
 /// Base implementation of Channel that handles CLA mapping and uses ApduChainer
@@ -385,26 +422,48 @@ abstract class BaseAdapter implements Adapter {
   }
 
   Future<void>? _lock;
+  _ExclusiveOwner? _exclusiveOwner;
+
+  bool get _ownsExclusive {
+    final owner = _exclusiveOwner;
+    return owner != null &&
+        owner.active &&
+        identical(Zone.current[this], owner);
+  }
+
+  bool get _isExclusivelyBusy => _lock != null && !_ownsExclusive;
 
   @override
-  Future<T> runExclusive<T>(Future<T> Function() action) async {
-    if (Zone.current[this] == true) {
+  Future<T> runExclusive<T>(Future<T> Function() action) =>
+      _runExclusive(action, wait: true);
+
+  Future<T> _runExclusive<T>(
+    Future<T> Function() action, {
+    required bool wait,
+  }) async {
+    if (_ownsExclusive) {
       return await action();
     }
 
     while (_lock != null) {
+      if (!wait) throw const ReaderBusyException();
       await _lock;
     }
 
     final completer = Completer<void>();
+    final owner = _ExclusiveOwner();
+    _exclusiveOwner = owner;
     _lock = completer.future;
 
     try {
       return await runZoned(
         () async => await action(),
-        zoneValues: {this: true},
+        zoneValues: {this: owner},
       );
     } finally {
+      // Detached futures retain the zone, but lose ownership when action ends.
+      owner.active = false;
+      _exclusiveOwner = null;
       _lock = null;
       completer.complete();
     }

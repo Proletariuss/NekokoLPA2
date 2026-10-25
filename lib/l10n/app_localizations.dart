@@ -4306,6 +4306,1104 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Qualcomm\'s low-level modem protocol (requires Shizuku)'**
   String get qrtrReaderSubtitle;
+
+  /// No description provided for @voWifiCallHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Call history'**
+  String get voWifiCallHistory;
+
+  /// No description provided for @voWifiRefreshCallHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh call history'**
+  String get voWifiRefreshCallHistory;
+
+  /// No description provided for @voWifiKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Keypad'**
+  String get voWifiKeypad;
+
+  /// No description provided for @voWifiAllCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'All calls'**
+  String get voWifiAllCalls;
+
+  /// No description provided for @voWifiMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Missed'**
+  String get voWifiMissed;
+
+  /// No description provided for @voWifiCouldNotLoadCallHistoryPullDownToRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load call history. Pull down to retry.'**
+  String get voWifiCouldNotLoadCallHistoryPullDownToRetry;
+
+  /// No description provided for @voWifiNoCallHistoryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No call history yet'**
+  String get voWifiNoCallHistoryYet;
+
+  /// No description provided for @voWifiCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get voWifiCompleted;
+
+  /// No description provided for @voWifiInCall.
+  ///
+  /// In en, this message translates to:
+  /// **'In call'**
+  String get voWifiInCall;
+
+  /// No description provided for @voWifiFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get voWifiFailed;
+
+  /// No description provided for @voWifiDeclinedBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined / busy'**
+  String get voWifiDeclinedBusy;
+
+  /// No description provided for @voWifiNotAnswered.
+  ///
+  /// In en, this message translates to:
+  /// **'Not answered'**
+  String get voWifiNotAnswered;
+
+  /// No description provided for @voWifiInterruptedFinalStateUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Interrupted · final state unknown'**
+  String get voWifiInterruptedFinalStateUnknown;
+
+  /// No description provided for @voWifiConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting'**
+  String get voWifiConnecting;
+
+  /// No description provided for @voWifiIncoming.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming'**
+  String get voWifiIncoming;
+
+  /// No description provided for @voWifiOutgoing.
+  ///
+  /// In en, this message translates to:
+  /// **'Outgoing'**
+  String get voWifiOutgoing;
+
+  /// No description provided for @voWifiUnknownCaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown caller'**
+  String get voWifiUnknownCaller;
+
+  /// No description provided for @voWifiDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration'**
+  String get voWifiDuration;
+
+  /// No description provided for @voWifiUseNumberInDialer.
+  ///
+  /// In en, this message translates to:
+  /// **'Use number in dialer'**
+  String get voWifiUseNumberInDialer;
+
+  /// No description provided for @voWifiFilterMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter messages'**
+  String get voWifiFilterMessages;
+
+  /// No description provided for @voWifiAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get voWifiAll;
+
+  /// No description provided for @voWifiInbox.
+  ///
+  /// In en, this message translates to:
+  /// **'Inbox'**
+  String get voWifiInbox;
+
+  /// No description provided for @voWifiSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Sent'**
+  String get voWifiSent;
+
+  /// No description provided for @voWifiUnhideToSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Unhide to search'**
+  String get voWifiUnhideToSearch;
+
+  /// No description provided for @voWifiSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get voWifiSearch;
+
+  /// No description provided for @voWifiNewMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'New message'**
+  String get voWifiNewMessage;
+
+  /// No description provided for @voWifiMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'Messages'**
+  String get voWifiMessages;
+
+  /// No description provided for @voWifiCouldNotLoadMessagesPullDownToRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load messages. Pull down to retry.'**
+  String get voWifiCouldNotLoadMessagesPullDownToRetry;
+
+  /// No description provided for @voWifiNoConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'No conversations'**
+  String get voWifiNoConversations;
+
+  /// No description provided for @voWifiNoReceivedMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No received messages yet'**
+  String get voWifiNoReceivedMessagesYet;
+
+  /// No description provided for @voWifiNoSentMessagesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No sent messages yet'**
+  String get voWifiNoSentMessagesYet;
+
+  /// No description provided for @voWifiConnectWiFiCallingAndKeepTheAppIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Wi-Fi calling and keep the app in the foreground to receive calls and SMS.'**
+  String get voWifiConnectWiFiCallingAndKeepTheAppIn;
+
+  /// No description provided for @voWifiMessageHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Message hidden'**
+  String get voWifiMessageHidden;
+
+  /// No description provided for @voWifiYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get voWifiYesterday;
+
+  /// No description provided for @voWifiConversations.
+  ///
+  /// In en, this message translates to:
+  /// **'Conversations'**
+  String get voWifiConversations;
+
+  /// No description provided for @voWifiReply.
+  ///
+  /// In en, this message translates to:
+  /// **'Reply'**
+  String get voWifiReply;
+
+  /// No description provided for @voWifiReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get voWifiReceived;
+
+  /// No description provided for @voWifiSubmittedDeliveryUnconfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted, delivery unconfirmed'**
+  String get voWifiSubmittedDeliveryUnconfirmed;
+
+  /// No description provided for @voWifiSubmitting.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitting'**
+  String get voWifiSubmitting;
+
+  /// No description provided for @voWifiRecents.
+  ///
+  /// In en, this message translates to:
+  /// **'Recents'**
+  String get voWifiRecents;
+
+  /// No description provided for @voWifiCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get voWifiCall;
+
+  /// No description provided for @voWifiDeleteDigit.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete digit'**
+  String get voWifiDeleteDigit;
+
+  /// No description provided for @voWifiIdle.
+  ///
+  /// In en, this message translates to:
+  /// **'Idle'**
+  String get voWifiIdle;
+
+  /// No description provided for @voWifiCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling'**
+  String get voWifiCalling;
+
+  /// No description provided for @voWifiRinging.
+  ///
+  /// In en, this message translates to:
+  /// **'Ringing'**
+  String get voWifiRinging;
+
+  /// No description provided for @voWifiIncomingCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming call'**
+  String get voWifiIncomingCall;
+
+  /// No description provided for @voWifiEndingCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Ending call'**
+  String get voWifiEndingCall;
+
+  /// No description provided for @voWifiCallEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Call ended'**
+  String get voWifiCallEnded;
+
+  /// No description provided for @voWifiDeclined.
+  ///
+  /// In en, this message translates to:
+  /// **'Declined'**
+  String get voWifiDeclined;
+
+  /// No description provided for @voWifiBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Busy'**
+  String get voWifiBusy;
+
+  /// No description provided for @voWifiSubmitted.
+  ///
+  /// In en, this message translates to:
+  /// **'Submitted'**
+  String get voWifiSubmitted;
+
+  /// No description provided for @voWifiWiFiCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi calling'**
+  String get voWifiWiFiCalling;
+
+  /// No description provided for @voWifiDial.
+  ///
+  /// In en, this message translates to:
+  /// **'Dial'**
+  String get voWifiDial;
+
+  /// No description provided for @voWifiBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get voWifiBack;
+
+  /// No description provided for @voWifiConnectionSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection settings'**
+  String get voWifiConnectionSettings;
+
+  /// No description provided for @voWifiConnectionOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection overview'**
+  String get voWifiConnectionOverview;
+
+  /// No description provided for @voWifiOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get voWifiOverview;
+
+  /// No description provided for @voWifiRecentCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent calls'**
+  String get voWifiRecentCalls;
+
+  /// No description provided for @voWifiIncomingOutgoingAndMissed.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming, outgoing and missed'**
+  String get voWifiIncomingOutgoingAndMissed;
+
+  /// No description provided for @voWifiGroupedBySIMAndNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Grouped by SIM and number'**
+  String get voWifiGroupedBySIMAndNumber;
+
+  /// No description provided for @voWifiUSBCCIDSmartCardReader.
+  ///
+  /// In en, this message translates to:
+  /// **'USB CCID smart-card reader'**
+  String get voWifiUSBCCIDSmartCardReader;
+
+  /// No description provided for @voWifiBluetoothSIMReader.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth SIM reader'**
+  String get voWifiBluetoothSIMReader;
+
+  /// No description provided for @voWifiMyNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'My number'**
+  String get voWifiMyNumber;
+
+  /// No description provided for @voWifiCopied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get voWifiCopied;
+
+  /// No description provided for @voWifiCopyMyNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy my number'**
+  String get voWifiCopyMyNumber;
+
+  /// No description provided for @voWifiTheCarrierHasNotSuppliedAPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'The carrier has not supplied a phone number'**
+  String get voWifiTheCarrierHasNotSuppliedAPhoneNumber;
+
+  /// No description provided for @voWifiConnectionDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection details'**
+  String get voWifiConnectionDetails;
+
+  /// No description provided for @voWifiStoppingWiFiCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopping Wi-Fi calling…'**
+  String get voWifiStoppingWiFiCalling;
+
+  /// No description provided for @voWifiPleaseWait.
+  ///
+  /// In en, this message translates to:
+  /// **'Please wait…'**
+  String get voWifiPleaseWait;
+
+  /// No description provided for @voWifiStopWiFiCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Wi-Fi calling'**
+  String get voWifiStopWiFiCalling;
+
+  /// No description provided for @voWifiConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get voWifiConnect;
+
+  /// No description provided for @voWifiCarrierSettingsAreDetectedFromTheActiveSIM.
+  ///
+  /// In en, this message translates to:
+  /// **'Carrier settings are detected from the active SIM'**
+  String get voWifiCarrierSettingsAreDetectedFromTheActiveSIM;
+
+  /// No description provided for @voWifiEPDGHostOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'ePDG host (optional)'**
+  String get voWifiEPDGHostOptional;
+
+  /// No description provided for @voWifiProxyURLOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Proxy URL (optional)'**
+  String get voWifiProxyURLOptional;
+
+  /// No description provided for @voWifi127001RefersToThisIPhoneNot.
+  ///
+  /// In en, this message translates to:
+  /// **'127.0.0.1 refers to this iPhone, not your Mac. To use a proxy on your Mac, enter its LAN address.'**
+  String get voWifi127001RefersToThisIPhoneNot;
+
+  /// No description provided for @voWifiIMEIOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'IMEI (optional)'**
+  String get voWifiIMEIOptional;
+
+  /// No description provided for @voWifiStopWiFiCallingBeforeManagingProfilesOrChanging.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop Wi-Fi calling before managing profiles or changing readers.'**
+  String get voWifiStopWiFiCallingBeforeManagingProfilesOrChanging;
+
+  /// No description provided for @voWifiCallsUseTheIPhoneSystemCallScreenReaderSMS.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls use the iPhone system call screen. Reader SMS is stored separately from Apple Messages. iOS may pause an idle connection after backgrounding or locking. Returning to the foreground or changing networks checks the connection and reconnects when needed; new calls and SMS wait for verification. Force-quitting ends the session, so reconnect manually after reopening.'**
+  String get voWifiCallsUseTheIPhoneSystemCallScreenReaderSMS;
+
+  /// No description provided for @voWifiPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get voWifiPhoneNumber;
+
+  /// No description provided for @voWifiCountryCodeAndNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'+ country code and number'**
+  String get voWifiCountryCodeAndNumber;
+
+  /// No description provided for @voWifiHideKeyboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide keyboard'**
+  String get voWifiHideKeyboard;
+
+  /// No description provided for @voWifiCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls'**
+  String get voWifiCalls;
+
+  /// No description provided for @voWifiReadyForIncomingCallsSystemAnswerDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready for incoming calls · system Answer / Decline'**
+  String get voWifiReadyForIncomingCallsSystemAnswerDecline;
+
+  /// No description provided for @voWifiConnectWiFiCallingToReceiveCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect Wi-Fi calling to receive calls'**
+  String get voWifiConnectWiFiCallingToReceiveCalls;
+
+  /// No description provided for @voWifiCallHistoryCouldNotBeSavedOnThisDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Call history could not be saved on this device'**
+  String get voWifiCallHistoryCouldNotBeSavedOnThisDevice;
+
+  /// No description provided for @voWifiIncomingOutgoingAndMissedCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming, outgoing and missed calls'**
+  String get voWifiIncomingOutgoingAndMissedCalls;
+
+  /// No description provided for @voWifiAllMessages.
+  ///
+  /// In en, this message translates to:
+  /// **'All messages'**
+  String get voWifiAllMessages;
+
+  /// No description provided for @voWifiYourRecentReaderMessagesWillAppearHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recent reader messages will appear here.'**
+  String get voWifiYourRecentReaderMessagesWillAppearHere;
+
+  /// No description provided for @voWifiStoredOnThisDeviceSubmittedMessagesAreNotConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Stored on this device. Submitted messages are not confirmed delivered.'**
+  String get voWifiStoredOnThisDeviceSubmittedMessagesAreNotConfirmed;
+
+  /// No description provided for @voWifiMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get voWifiMessage;
+
+  /// No description provided for @voWifiWriteAMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Write a message…'**
+  String get voWifiWriteAMessage;
+
+  /// No description provided for @voWifiSending.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending…'**
+  String get voWifiSending;
+
+  /// No description provided for @voWifiSendSMS.
+  ///
+  /// In en, this message translates to:
+  /// **'Send SMS'**
+  String get voWifiSendSMS;
+
+  /// No description provided for @voWifiTo.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get voWifiTo;
+
+  /// No description provided for @voWifiFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get voWifiFrom;
+
+  /// No description provided for @voWifiAudioConnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio connected'**
+  String get voWifiAudioConnected;
+
+  /// No description provided for @voWifiAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer'**
+  String get voWifiAnswer;
+
+  /// No description provided for @voWifiDecline.
+  ///
+  /// In en, this message translates to:
+  /// **'Decline'**
+  String get voWifiDecline;
+
+  /// No description provided for @voWifiHangUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Hang up'**
+  String get voWifiHangUp;
+
+  /// No description provided for @voWifiReader.
+  ///
+  /// In en, this message translates to:
+  /// **'Reader'**
+  String get voWifiReader;
+
+  /// No description provided for @voWifiReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get voWifiReady;
+
+  /// No description provided for @voWifiComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'complete'**
+  String get voWifiComplete;
+
+  /// No description provided for @voWifiFailed2.
+  ///
+  /// In en, this message translates to:
+  /// **'failed'**
+  String get voWifiFailed2;
+
+  /// No description provided for @voWifiInProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'in progress'**
+  String get voWifiInProgress;
+
+  /// No description provided for @voWifiWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'waiting'**
+  String get voWifiWaiting;
+
+  /// No description provided for @voWifiWiFiCallingConnectionProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi calling connection progress'**
+  String get voWifiWiFiCallingConnectionProgress;
+
+  /// No description provided for @voWifiCheckingConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking connection…'**
+  String get voWifiCheckingConnection;
+
+  /// No description provided for @voWifiReadingTheActiveSIM.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading the active SIM…'**
+  String get voWifiReadingTheActiveSIM;
+
+  /// No description provided for @voWifiPreparingEPDGNetworkPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing ePDG network path…'**
+  String get voWifiPreparingEPDGNetworkPath;
+
+  /// No description provided for @voWifiWaitingForTheFirstEPDGResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for the first ePDG response…'**
+  String get voWifiWaitingForTheFirstEPDGResponse;
+
+  /// No description provided for @voWifiWaitingForCarrierAuthentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for carrier authentication…'**
+  String get voWifiWaitingForCarrierAuthentication;
+
+  /// No description provided for @voWifiRespondingToCarrierIdentityRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'Responding to carrier identity request…'**
+  String get voWifiRespondingToCarrierIdentityRequest;
+
+  /// No description provided for @voWifiProcessingSIMAKAAuthentication.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing SIM AKA authentication…'**
+  String get voWifiProcessingSIMAKAAuthentication;
+
+  /// No description provided for @voWifiWaitingForCarrierAuthenticationResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for carrier authentication result…'**
+  String get voWifiWaitingForCarrierAuthenticationResult;
+
+  /// No description provided for @voWifiConfirmingTheAuthenticatedTunnel.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirming the authenticated tunnel…'**
+  String get voWifiConfirmingTheAuthenticatedTunnel;
+
+  /// No description provided for @voWifiPreparingTheEncryptedTunnel.
+  ///
+  /// In en, this message translates to:
+  /// **'Preparing the encrypted tunnel…'**
+  String get voWifiPreparingTheEncryptedTunnel;
+
+  /// No description provided for @voWifiConnectingToTheCarrierEPDG.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting to the carrier ePDG…'**
+  String get voWifiConnectingToTheCarrierEPDG;
+
+  /// No description provided for @voWifiRegisteringWithIMS.
+  ///
+  /// In en, this message translates to:
+  /// **'Registering with IMS…'**
+  String get voWifiRegisteringWithIMS;
+
+  /// No description provided for @voWifiIMSRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'IMS registered'**
+  String get voWifiIMSRegistered;
+
+  /// No description provided for @voWifiWaitingForIMSRegistration.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for IMS registration…'**
+  String get voWifiWaitingForIMSRegistration;
+
+  /// No description provided for @voWifiConnectionInterruptedRetrying.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection interrupted; retrying…'**
+  String get voWifiConnectionInterruptedRetrying;
+
+  /// No description provided for @voWifiConnectionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed'**
+  String get voWifiConnectionFailed;
+
+  /// No description provided for @voWifiSessionStoppedWhileTheAppWasInTheBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Session stopped while the app was in the background'**
+  String get voWifiSessionStoppedWhileTheAppWasInTheBackground;
+
+  /// No description provided for @voWifiDisconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnected'**
+  String get voWifiDisconnected;
+
+  /// No description provided for @voWifiReadyToConnectWithTheActiveSIM.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to connect with the active SIM'**
+  String get voWifiReadyToConnectWithTheActiveSIM;
+
+  /// No description provided for @voWifiShowSensitiveInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Show sensitive information'**
+  String get voWifiShowSensitiveInformation;
+
+  /// No description provided for @voWifiHideSensitiveInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide sensitive information'**
+  String get voWifiHideSensitiveInformation;
+
+  /// No description provided for @voWifiTheActionCouldNotBeCompletedTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'The action could not be completed. Try again.'**
+  String get voWifiTheActionCouldNotBeCompletedTryAgain;
+
+  /// No description provided for @voWifiSpeaker.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker'**
+  String get voWifiSpeaker;
+
+  /// No description provided for @voWifiMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Mute'**
+  String get voWifiMute;
+
+  /// No description provided for @voWifiHideKeypad.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide keypad'**
+  String get voWifiHideKeypad;
+
+  /// No description provided for @voWifiEndCall.
+  ///
+  /// In en, this message translates to:
+  /// **'End call'**
+  String get voWifiEndCall;
+
+  /// No description provided for @voWifiDeleteRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete records?'**
+  String get voWifiDeleteRecords;
+
+  /// No description provided for @voWifiCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get voWifiCancel;
+
+  /// No description provided for @voWifiDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get voWifiDelete;
+
+  /// No description provided for @voWifiCouldNotUpdateRecordsTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update records. Try again.'**
+  String get voWifiCouldNotUpdateRecordsTryAgain;
+
+  /// No description provided for @voWifiDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get voWifiDone;
+
+  /// No description provided for @voWifiEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get voWifiEdit;
+
+  /// No description provided for @voWifiDeselectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect all'**
+  String get voWifiDeselectAll;
+
+  /// No description provided for @voWifiSelectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get voWifiSelectAll;
+
+  /// No description provided for @voWifiDeleteSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete selected'**
+  String get voWifiDeleteSelected;
+
+  /// No description provided for @voWifiRead.
+  ///
+  /// In en, this message translates to:
+  /// **'Read'**
+  String get voWifiRead;
+
+  /// No description provided for @voWifiDeleteRecordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the {count} selected records from this device? This cannot be undone.'**
+  String voWifiDeleteRecordCount(int count);
+
+  /// No description provided for @voWifiSelectedRecordCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} records selected'**
+  String voWifiSelectedRecordCount(int count);
+
+  /// No description provided for @voWifiIMEIMustContain15Digits.
+  ///
+  /// In en, this message translates to:
+  /// **'IMEI must contain 15 digits'**
+  String get voWifiIMEIMustContain15Digits;
+
+  /// No description provided for @voWifiIMEIMustHave15DigitsAndAValidCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'IMEI must have 15 digits and a valid check digit'**
+  String get voWifiIMEIMustHave15DigitsAndAValidCheck;
+
+  /// No description provided for @voWifiCouldNotSaveWiFiCallingSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not save Wi-Fi calling settings'**
+  String get voWifiCouldNotSaveWiFiCallingSettings;
+
+  /// No description provided for @voWifiTheNativeWiFiCallingEngineIsUnavailableIn.
+  ///
+  /// In en, this message translates to:
+  /// **'The native Wi-Fi calling engine is unavailable in this build'**
+  String get voWifiTheNativeWiFiCallingEngineIsUnavailableIn;
+
+  /// No description provided for @voWifiCallKitRejectedTheTransactionBecauseTheAppNeedsThe.
+  ///
+  /// In en, this message translates to:
+  /// **'CallKit rejected the transaction because the app needs the VoIP background mode.'**
+  String get voWifiCallKitRejectedTheTransactionBecauseTheAppNeedsThe;
+
+  /// No description provided for @voWifiAWiFiCallingSessionIsAlreadyActive.
+  ///
+  /// In en, this message translates to:
+  /// **'A Wi-Fi calling session is already active'**
+  String get voWifiAWiFiCallingSessionIsAlreadyActive;
+
+  /// No description provided for @voWifiThisReaderDoesNotSupportWiFiCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'This reader does not support Wi-Fi calling'**
+  String get voWifiThisReaderDoesNotSupportWiFiCalling;
+
+  /// No description provided for @voWifiConnectThisReaderInManageBeforeStartingWiFi.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect this reader in Manage before starting Wi-Fi calling'**
+  String get voWifiConnectThisReaderInManageBeforeStartingWiFi;
+
+  /// No description provided for @voWifiTheSIMReaderDisconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'The SIM reader disconnected'**
+  String get voWifiTheSIMReaderDisconnected;
+
+  /// No description provided for @voWifiTheActiveSIMDidNotProvideAnIMSI.
+  ///
+  /// In en, this message translates to:
+  /// **'The active SIM did not provide an IMSI'**
+  String get voWifiTheActiveSIMDidNotProvideAnIMSI;
+
+  /// No description provided for @voWifiWiFiCallingIsNotReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi calling is not ready'**
+  String get voWifiWiFiCallingIsNotReady;
+
+  /// No description provided for @voWifiIMSMessagingIsNotRegistered.
+  ///
+  /// In en, this message translates to:
+  /// **'IMS messaging is not registered'**
+  String get voWifiIMSMessagingIsNotRegistered;
+
+  /// No description provided for @voWifiSIMSessionChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'SIM session changed'**
+  String get voWifiSIMSessionChanged;
+
+  /// No description provided for @voWifiSIMSessionHasEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'SIM session has ended'**
+  String get voWifiSIMSessionHasEnded;
+
+  /// No description provided for @voWifiSIMSessionWasCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'SIM session was cancelled.'**
+  String get voWifiSIMSessionWasCancelled;
+
+  /// No description provided for @voWifiIncomingSMSCouldNotBeSavedOnThisDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming SMS could not be saved on this device'**
+  String get voWifiIncomingSMSCouldNotBeSavedOnThisDevice;
+
+  /// No description provided for @voWifiMicrophonePermissionIsRequiredToMakeACall.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone permission is required to make a call.'**
+  String get voWifiMicrophonePermissionIsRequiredToMakeACall;
+
+  /// No description provided for @voWifiOpenTheAppToConnectVoWiFi.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app to connect VoWiFi.'**
+  String get voWifiOpenTheAppToConnectVoWiFi;
+
+  /// No description provided for @voWifiStopTheCurrentVoWiFiSessionBeforeConnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the current VoWiFi session before connecting.'**
+  String get voWifiStopTheCurrentVoWiFiSessionBeforeConnecting;
+
+  /// No description provided for @voWifiConnectionCancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection cancelled.'**
+  String get voWifiConnectionCancelled;
+
+  /// No description provided for @voWifiTheSIMReaderDidNotAnswerWithin30Seconds.
+  ///
+  /// In en, this message translates to:
+  /// **'The SIM reader did not answer within 30 seconds.'**
+  String get voWifiTheSIMReaderDidNotAnswerWithin30Seconds;
+
+  /// No description provided for @voWifiNewWiFiSMS.
+  ///
+  /// In en, this message translates to:
+  /// **'New Wi-Fi SMS'**
+  String get voWifiNewWiFiSMS;
+
+  /// No description provided for @voWifiOpenToReadYourMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app to read your message.'**
+  String get voWifiOpenToReadYourMessage;
+
+  /// No description provided for @voWifiReaderInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Wi-Fi calling is using the reader. Stop it before managing profiles.'**
+  String get voWifiReaderInUse;
+
+  /// No description provided for @voWifiCouldNotConfirmConnectionState.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not confirm the current connection state'**
+  String get voWifiCouldNotConfirmConnectionState;
+
+  /// No description provided for @voWifiCannotCorrectSIMCommandLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot correct SIM command length'**
+  String get voWifiCannotCorrectSIMCommandLength;
+
+  /// No description provided for @voWifiIncompleteSIMResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Incomplete SIM response'**
+  String get voWifiIncompleteSIMResponse;
+
+  /// No description provided for @voWifiInvalidSIMCommandBatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid SIM command batch'**
+  String get voWifiInvalidSIMCommandBatch;
+
+  /// No description provided for @voWifiInvalidSIMCommandBatchSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid SIM command batch size'**
+  String get voWifiInvalidSIMCommandBatchSize;
+
+  /// No description provided for @voWifiInvalidSIMCommandEncoding.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid SIM command encoding'**
+  String get voWifiInvalidSIMCommandEncoding;
+
+  /// No description provided for @voWifiInvalidWiFiCallingResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid Wi-Fi calling response'**
+  String get voWifiInvalidWiFiCallingResponse;
+
+  /// No description provided for @voWifiInvalidIncomingSMSSegments.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid incoming SMS segments'**
+  String get voWifiInvalidIncomingSMSSegments;
+
+  /// No description provided for @voWifiSIMResponseExceedsSizeLimit.
+  ///
+  /// In en, this message translates to:
+  /// **'SIM response exceeds size limit'**
+  String get voWifiSIMResponseExceedsSizeLimit;
+
+  /// No description provided for @voWifiTheSIMReaderDidNotReconnectPleaseRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'The SIM reader did not reconnect. Please retry.'**
+  String get voWifiTheSIMReaderDidNotReconnectPleaseRetry;
+
+  /// No description provided for @voWifiTheSIMReaderDisconnectedReconnectItAndTryWi.
+  ///
+  /// In en, this message translates to:
+  /// **'The SIM reader disconnected. Reconnect it and try Wi-Fi calling again.'**
+  String get voWifiTheSIMReaderDisconnectedReconnectItAndTryWi;
+
+  /// No description provided for @voWifiTheNativeEngineReportedAnError.
+  ///
+  /// In en, this message translates to:
+  /// **'The native engine reported an error'**
+  String get voWifiTheNativeEngineReportedAnError;
+
+  /// No description provided for @voWifiTooManySIMResponseContinuations.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many SIM response continuations'**
+  String get voWifiTooManySIMResponseContinuations;
+
+  /// No description provided for @voWifiUnknownWiFiCallingCallback.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Wi-Fi calling callback'**
+  String get voWifiUnknownWiFiCallingCallback;
+
+  /// No description provided for @voWifiSimStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'SIM status {status}'**
+  String voWifiSimStatus(String status);
 }
 
 class _AppLocalizationsDelegate

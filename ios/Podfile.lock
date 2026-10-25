@@ -5,6 +5,8 @@ PODS:
     - Flutter
   - ccid (0.1.1):
     - Flutter
+  - device_info_plus (0.0.1):
+    - Flutter
   - DKImagePickerController/Core (4.3.9):
     - DKImagePickerController/ImageDataManager
     - DKImagePickerController/Resource
@@ -49,14 +51,16 @@ PODS:
     - Flutter
   - permission_handler_apple (9.3.0):
     - Flutter
+  - proletarius_vowifi (0.1.0):
+    - Flutter
   - SDWebImage (5.21.5):
     - SDWebImage/Core (= 5.21.5)
   - SDWebImage/Core (5.21.5)
-  - Sentry/HybridSDK (8.56.2)
-  - sentry_flutter (9.10.0):
+  - Sentry/HybridSDK (8.58.4)
+  - sentry_flutter (9.30.1):
     - Flutter
     - FlutterMacOS
-    - Sentry/HybridSDK (= 8.56.2)
+    - Sentry/HybridSDK (= 8.58.4)
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -74,12 +78,14 @@ DEPENDENCIES:
   - app_links (from `.symlinks/plugins/app_links/ios`)
   - ble (from `.symlinks/plugins/ble/ios`)
   - ccid (from `.symlinks/plugins/ccid/ios`)
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - mobile_scanner (from `.symlinks/plugins/mobile_scanner/darwin`)
   - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
+  - proletarius_vowifi (from `.symlinks/plugins/proletarius_vowifi/ios`)
   - sentry_flutter (from `.symlinks/plugins/sentry_flutter/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
   - sqflite_darwin (from `.symlinks/plugins/sqflite_darwin/darwin`)
@@ -101,6 +107,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/ble/ios"
   ccid:
     :path: ".symlinks/plugins/ccid/ios"
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
   file_picker:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
@@ -113,6 +121,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/package_info_plus/ios"
   permission_handler_apple:
     :path: ".symlinks/plugins/permission_handler_apple/ios"
+  proletarius_vowifi:
+    :path: ".symlinks/plugins/proletarius_vowifi/ios"
   sentry_flutter:
     :path: ".symlinks/plugins/sentry_flutter/ios"
   shared_preferences_foundation:
@@ -128,23 +138,25 @@ SPEC CHECKSUMS:
   app_links: a754cbec3c255bd4bbb4d236ecc06f28cd9a7ce8
   ble: 12cdc4b77f389bc9adc8c2293c257b267e31a68a
   ccid: bb5018a9d8894873e19fe72d9afd0eabc1143676
+  device_info_plus: 21fcca2080fbcd348be798aa36c3e5ed849eefbe
   DKImagePickerController: 946cec48c7873164274ecc4624d19e3da4c1ef3c
   DKPhotoGallery: b3834fecb755ee09a593d7c9e389d8b5d6deed60
   file_picker: a0560bc09d61de87f12d246fc47d2119e6ef37be
-  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
   flutter_local_notifications: a5a732f069baa862e728d839dd2ebb904737effb
   mobile_scanner: 9157936403f5a0644ca3779a38ff8404c5434a93
   package_info_plus: af8e2ca6888548050f16fa2f1938db7b5a5df499
   permission_handler_apple: 4ed2196e43d0651e8ff7ca3483a069d469701f2d
+  proletarius_vowifi: e69ddca0ea582728427d3d289fe5089696bbe9b2
   SDWebImage: e9c98383c7572d713c1a0d7dd2783b10599b9838
-  Sentry: b53951377b78e21a734f5dc8318e333dbfc682d7
-  sentry_flutter: da39d10e3f2f3e060eebc9d7ecea027d34443d66
+  Sentry: 5321d74bdd28d6f6f8beaa1ca06f1fdc746bff49
+  sentry_flutter: c89c731736fabbbac53a4714df8ba0d21ba4100d
   shared_preferences_foundation: 7036424c3d8ec98dfe75ff1667cb0cd531ec82bb
   sqflite_darwin: 20b2a3a3b70e43edae938624ce550a3cbf66a3d0
   SwiftyGif: 706c60cf65fa2bc5ee0313beece843c8eb8194d4
   url_launcher_ios: 7a95fa5b60cc718a708b8f2966718e93db0cef1b
   webview_flutter_wkwebview: 8ebf4fded22593026f7dbff1fbff31ea98573c8d
 
-PODFILE CHECKSUM: 06d23d9598699ec99e2ff27f46aa5057d7710862
+PODFILE CHECKSUM: 6b440c6adeadbd79e86b0e3cd80299f112550e56
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0

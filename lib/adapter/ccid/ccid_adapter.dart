@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'dart:typed_data';
 import 'package:ccid/ccid.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logging/logging.dart';
 import '../euicc_adapter.dart';
 import '../../utils/hex_utils.dart';
@@ -27,6 +27,14 @@ class CcidAdapter extends BaseAdapter {
 
   @override
   String? get lastAtr => _lastAtr;
+
+  void _clearConnection() {
+    _card = null;
+    _lastAtr = null;
+    currentEid = null;
+    updateConnectedReader(null);
+    _stateController.add(EuiccPortState.closed);
+  }
 
   bool get _isNineEsimReader {
     final normalized = connectedReader?.name.toLowerCase().replaceAll(
@@ -81,17 +89,15 @@ class CcidAdapter extends BaseAdapter {
 
   @override
   Future<void> disconnect() async {
-    if (_card != null) {
+    final card = _card;
+    _clearConnection();
+    if (card != null) {
       try {
-        await _card!.disconnect();
+        await card.disconnect();
       } catch (e) {
         _log.warning("Error during CCID disconnect: $e");
       }
-      _card = null;
     }
-    _lastAtr = null;
-    updateConnectedReader(null);
-    _stateController.add(EuiccPortState.closed);
   }
 
   @override
@@ -101,9 +107,20 @@ class CcidAdapter extends BaseAdapter {
 
   @override
   Future<Uint8List> sendRawApdu(Uint8List apdu) async {
-    if (_card == null) throw Exception("Not connected");
+    final card = _card;
+    if (card == null) {
+      throw PlatformException(code: 'DISCONNECTED', message: 'USB 读卡器未连接');
+    }
     final hexCmd = HexUtils.bytesToHex(apdu);
-    final responseHex = await _card!.transceive(hexCmd);
+    final String? responseHex;
+    try {
+      responseHex = await card.transceive(hexCmd);
+    } on PlatformException catch (error) {
+      if (error.code == 'DISCONNECTED' && identical(_card, card)) {
+        _clearConnection();
+      }
+      rethrow;
+    }
     if (responseHex == null) {
       throw Exception("Transceive failed (null response)");
     }
