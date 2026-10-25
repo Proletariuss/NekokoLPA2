@@ -1,0 +1,15 @@
+name: proletarius_vowifi
+description: Native iOS bridge for the embedded reader-backed IMS engine.
+version: 0.1.0
+publish_to: none
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+  flutter: '>=3.38.0'
+dependencies:
+  flutter:
+    sdk: flutter
+flutter:
+  plugin:
+    platforms:
+      ios:
+        pluginClass: ProletariusVowifiPlugin

@@ -1,0 +1,51 @@
+version: 3
+kind: carrier_bundle
+id: apple_mobilkom_bg
+bundle: mobilkom_bg.bundle
+supported_plmns:
+    - "28401"
+plmn_overrides:
+    "28401":
+        apns:
+            - apn: internet.a1.bg
+              type_mask: 32817
+            - apn: mms.a1.bg
+              type_mask: 4
+            - apn: hos
+              type_mask: 1048576
+        apple:
+            carrier_entitlements:
+                supported_entitlements: 13313
+        entitlement:
+            entitlement_url: https://esim-es-open-prod-aonebg.esimcloud.net/aonebg/prod/executeAppleActions
+        ims:
+            register:
+                use_ipsec: true
+            signaling:
+                preconditions: supported
+                support_p_early_media: true
+                early_media_needs_header: true
+                csfb_on:
+                    - method: INVITE
+                      statuses:
+                        - "380"
+                        - "408"
+                        - 5XX
+                contact:
+                    always_add_sip_instance: true
+                    additional_contact_params:
+                        - selector: REGISTER,INVITE,INVITE:*[primary]
+                          params:
+                            - +g.3gpp.mid-call
+                            - +g.3gpp.srvcc-alerting
+                            - +g.3gpp.ps2cs-srvcc-orig-pre-alerting
+            media:
+                codecs:
+                    - payload_type: 109
+                      name: EVS
+                      clock_rate: 16000
+                      channels: 1
+                      fmtp: br=5.9-24.4; bw=nb-swb; ch-aw-recv=-1
+                evs_hard_bw_limit: nb-swb
+            volte:
+                enable_volte_by_default: true

@@ -1,0 +1,22 @@
+opencore-amr 0.1.6 source provenance
+
+Official release:
+https://downloads.sourceforge.net/project/opencore-amr/opencore-amr/opencore-amr-0.1.6.tar.gz
+Size: 939179 bytes
+SHA-256: 483eb4061088e2b34b358e47540b5d495a96cd468e361050fae615b1809dc4a1
+Release announcement (2022-08-01):
+https://sourceforge.net/p/opencore-amr/mailman/message/37688202/
+
+The 449 retained upstream files were compared byte-for-byte with that official
+archive on 2026-10-25; none had source changes. Five legacy OpenCORE/Android
+makefiles are omitted, not used by the supplied autotools iOS build:
+
+opencore/codecs_v2/audio/gsm_amr/amr_nb/dec/build/make/local.mk
+opencore/codecs_v2/audio/gsm_amr/amr_nb/common/build/make/local.mk
+opencore/codecs_v2/audio/gsm_amr/amr_nb/enc/build/make/local.mk
+opencore/codecs_v2/audio/gsm_amr/common/dec/build/make/local.mk
+opencore/codecs_v2/audio/gsm_amr/amr_wb/dec/build/make/local.mk
+
+LICENSE and opencore/NOTICE retain Apache-2.0 and PacketVideo attribution.
+Generated prebuilt libraries are excluded from version control; build the iOS
+archive with scripts/build_ios_vowifi_codecs.sh in the repository root.

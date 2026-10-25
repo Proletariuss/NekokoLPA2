@@ -35,6 +35,11 @@ analyze.log
 build/
 coverage/
 
+# Reader-backed iOS VoWiFi libraries are rebuilt from source, not committed.
+/mobilecore/build/
+/mobilecore/third_party/opencore-amr/prebuilt/
+/local_packages/proletarius_vowifi/ios/Frameworks/
+
 # Symbolication related
 app.*.symbols
 

@@ -1,0 +1,3 @@
+# Preserve verified upstream source and verbatim license notice bytes.
+mobilecore/third_party/opencore-amr/** -whitespace
+local_packages/proletarius_vowifi/ios/Resources/MobileCoreNotices.txt -whitespace
