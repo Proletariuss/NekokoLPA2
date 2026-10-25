@@ -1,0 +1,116 @@
+Reader-backed iOS Wi-Fi calling
+=============================
+
+Scope and architecture
+----------------------
+This experimental iOS feature uses an external USB CCID or supported RED
+Bluetooth SIM reader. It does not access an iPhone's internal SIM or add
+Android/desktop VoWiFi. The entry is in iOS Manage; upstream branding, main
+navigation, plugin tabs, application identity and release version are retained.
+
+mobilecore/ embeds IKE/EAP/ESP, a userspace IP stack, IMS/SIP, SMS and RTP in
+process. The Flutter host supplies serialized, generation-scoped APDU batches.
+The reader lease is held until Stop and in-flight APDUs finish. Unrelated eSIM
+operations cannot enter that reservation. Existing runExclusive callers still
+queue; the new explicit VoWiFi admission API fails fast when busy.
+
+lib/vowifi/ owns a session independently of navigation routes, durable SMS/call
+storage and control pages. Incoming SMS is acknowledged only after the database
+transaction commits. Stale generations cannot mutate a replacement session.
+local_packages/proletarius_vowifi/ hosts the Flutter/Go bridge, CallKit and
+bounded audio workers. Technical package/channel names are retained for ABI
+continuity, not UI branding. There is no private VoWiFi binary/helper process.
+The plugin observes application/scene and network lifecycle itself; AppDelegate
+does not acquire fork-specific appearance or reader-password channels.
+
+Security and the Three UK baseline
+---------------------------------
+Protocol code is preserved from integration build 634, whose tester reported
+Three UK VoWiFi usable on an iPhone. This is not hardware acceptance of this
+new upstream integration. Keep these invariants:
+
+- Encoding-4 CERTREQ when the policy requires certificate AUTH.
+- System-root chain trust, hostname, dates, key usage, CA constraints, critical
+  extensions, real RSA AUTH, AKA/AKA' MAC and final MSK AUTH.
+- Strict IKE purpose by default. Explicit serverAuth purpose and an exact IDr
+  alias only for published apple_hutchison_uk, physical SIM/profile 234/20, the
+  fixed public ePDG:500 and certificate name, with validation enabled and no
+  custom endpoint/override. Actual received IDr stays bound by AUTH.
+- The official DigiCert intermediate is untrusted chain-building material,
+  never a root. No generic .pub stripping, certificate downgrade or AIA fetch.
+- Configured custom ePDG/port and domain-preserving proxy/DNS precedence.
+  No second resolver or implicit direct connection bypass is introduced.
+- Diagnostics expose bounded categories/counts and public certificate hashes,
+  not raw APDUs, challenges, subscriber identities, packets or keys.
+
+Self-owned code was authorized for MIT contribution by the contributor. This
+does not relicense third-party source. See mobilecore/NOTICE.md, each component
+LICENSE/NOTICE, codec UPSTREAM.txt, SWu PATCHES.md and carrier UPSTREAM.md.
+mobilecore/DEPENDENCIES.json inventories the iOS Go graph and gomobile runtime;
+the corresponding original notices ship as the plugin resource. Regenerate
+with python3 scripts/generate_vowifi_notices.py when dependencies/toolchains
+change; --check detects drift. This is a module-root inventory, not a legal
+determination or a file-level audit of every external/Apple/Flutter component.
+
+Source build
+------------
+Use the repository's Flutter 3.47.2, Xcode/iOS SDK and CocoaPods. Go >=1.26.3 is
+required; CI/notices pin Go 1.26.7. The iOS minimum remains upstream's 15.6.
+Install matching binding tools and ensure Go's bin directory is on PATH:
+
+  go install golang.org/x/mobile/cmd/gomobile@v0.0.0-20260908204917-8b95e45f8d3e
+  go install golang.org/x/mobile/cmd/gobind@v0.0.0-20260908204917-8b95e45f8d3e
+  gomobile init
+  bash scripts/build_ios_vowifi.sh --app
+
+This builds opencore-amr for iOS arm64 and the Go XCFramework from source,
+copies both into the local plugin, then builds an unsigned Flutter app.
+--framework-only stops before Flutter/CocoaPods. Neither selects a signing
+identity nor installs an app. Generated libraries are ignored, not committed.
+
+Verification
+------------
+The main suite does not traverse the nested SWu module; run both:
+
+  (cd mobilecore && go test -race -count=1 ./... && go vet ./...)
+  (cd mobilecore/third_party/swu-go && go test -race -count=1 ./... && go vet ./...)
+  python3 scripts/generate_vowifi_notices.py --check
+  swiftc local_packages/proletarius_vowifi/ios/Classes/VowifiRecoveryPolicy.swift scripts/test_vowifi_recovery.swift -o /tmp/vowifi-recovery-test
+  /tmp/vowifi-recovery-test
+  flutter pub get
+  flutter analyze --no-pub lib test local_packages/proletarius_vowifi
+  flutter test --no-pub
+  flutter build web --release --no-pub
+
+Tests reject wrong names/aliases/roots, mixed-purpose chains, bad AUTH/MSK and
+stale/cancelled work. The 3HK-style initial wire has an exact fixed baseline.
+Optional external carrier/codec fixtures default to skips, not parity passes.
+Darwin no-cgo certificate verification fails closed. Default Darwin tests use
+the non-AMR fallback; tagged macOS codec tests require a separate macOS build.
+
+The path-limited ios-vowifi workflow adds protocol, Darwin/Flutter/unsigned-iOS
+and Web checks without signing/deployment secrets. Existing release workflows
+are not replaced. CI/build results do not establish physical interoperability.
+
+At the pinned upstream base, full analysis with Flutter 3.47.2 reports
+unawaited_return_in_try_block at lib/pages/notification_history_page.dart:58.
+That file and analysis_options.yaml remain byte-for-byte upstream. It is not
+silently fixed or globally suppressed by this feature. The new workflow runs
+strict analysis on all feature/modified host boundaries and the complete test
+suite; full-analysis output must still be recorded separately. Web JS release
+builds, while the upstream flutter_rust_bridge dependency's Wasm dry-run warns;
+that does not establish WebAssembly support.
+
+Device acceptance and background limits
+--------------------------------------
+Test BLE/USB separately: connect, register, stop during startup/ready, reader
+disconnect/reconnect, calls, bidirectional audio, speaker/mute/headset/DTMF,
+microphone denial, SMS persistence/duplicates, page and App lifecycle changes.
+Never attach real subscriber identifiers or raw authentication logs to a PR.
+
+There is no PushKit wakeup server. iOS may suspend/terminate idle IMS; force-
+quit ends the process. Audio mode is for real call audio, not fake playback to
+evade suspension. A finite background task finishes teardown only. Foreground/
+network recovery validates an existing session, never silently starts one the
+user stopped. Idle incoming call/SMS and long-duration reachability are not
+guaranteed. No new device/operator acceptance is claimed by this source port.

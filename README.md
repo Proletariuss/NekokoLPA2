@@ -20,6 +20,10 @@ NekokoLPA2 is a cross-platform eSIM management app for working with local eUICCs
 
 ## Platform Support
 
+Experimental reader-backed Wi-Fi calling is available through the iOS Manage
+screen. It requires an external SIM reader, not the phone's internal SIM;
+see [build instructions and limitations](docs/ios-vowifi.txt).
+
 | Connection Type | Android | iOS | macOS | Linux | Windows | Chrome |
 | --- | --- | --- | --- | --- | --- | --- |
 | BLE readers | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ |

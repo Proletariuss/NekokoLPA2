@@ -1,0 +1,74 @@
+Local upstream-port verification, 2026-10-25
+==========================================
+
+Base: iebb/NekokoLPA2 master
+Commit: 9717ccfe65f2780b9185937ca2cd45b16621ac83
+Branch: feat/ios-reader-vowifi (local only)
+
+Preservation and source scope
+-----------------------------
+- 1842 core Go/module/public-certificate/carrier-data source files remain
+  byte-for-byte identical to the user-confirmed integration-build-634 baseline.
+- 676 carrier profiles, 853 selectors and the separate 3HK template retained;
+  fixed upstream ca030f836d858e59443e8957a844216c179d8677 comparison expanded
+  1924 runtime profiles with zero changes.
+- Certificate/host/purpose/IDr/AUTH/AKA-MAC/final-MSK checks retained, including
+  the exact Three UK scope and unchanged 295-byte 3HK-style initial wire hash:
+  35ed57f804c934caf2ab94baa3480ff80f2018cead1d9eca060c29a612180e1f
+- Upstream assets/branding, main navigation, app configuration/version, native
+  AppDelegate/signing project and non-English ARB sources are unchanged.
+- Build product still identifies as NekokoLPA / ee.nekoko.nlpa2 / 2.3.0 (589),
+  arm64, matching the upstream base. No signing or installation performed.
+- No new B0 authentication, 9eSIM reader transport, profile-download/security
+  workflow, or fork-specific appearance/password channel was brought over.
+- Technical internal module/channel names are retained for compatibility;
+  original contributor/third-party attribution is not application branding.
+
+Executed locally
+----------------
+PASS: Complete Flutter test suite: 554 tests.
+PASS: Strict analysis of all feature and modified host Dart boundaries.
+PASS: dart format check for 63 new/modified Dart files: zero changes needed.
+PASS: Main Go module race suite (with fixed carrier parity source) and vet.
+PASS: Nested SWu full-module race suite and vet.
+PASS: Darwin no-cgo certificate path tests (fail closed); Linux arm64 no-cgo
+      SWu test-binary cross compilation.
+PASS: Explicit Three UK policy, wrong aliases/names/roots/purposes, tampered
+      signatures/MSK, cancellation and 3HK wire regression tests.
+PASS: Standalone Swift recovery policy: 30 checks.
+PASS: Source-built iOS arm64 codec and Go XCFramework; unsigned Xcode release
+      app build. Final binary contains the Three UK policy/diagnostic fields.
+PASS: Web JavaScript release compilation.
+PASS: iOS dependency notice regeneration check; 20 Go modules inventoried
+      with 28 module/component-root license/NOTICE texts and no missing roots.
+
+Baseline warnings and limits
+----------------------------
+Full Dart analysis reports one existing warning at
+lib/pages/notification_history_page.dart:58: unawaited_return_in_try_block.
+The file's upstream and port blob IDs are both:
+00c2515704f2162c760db34dc51fbafbf745d62f
+No unrelated fix or global warning suppression is included. The new CI checks
+the full test suite and analyzes feature/modified files strictly; this record
+does not claim full-repository analysis is warning-free.
+
+The upstream flutter_rust_bridge WebAssembly dry-run warns; the default Web JS
+release build succeeds. Existing Russian ARB plural warnings are not changed.
+Flutter warns that current CocoaPods plugins need future SwiftPM adoption.
+
+The existing obsolete SwiftPM-disable key was replaced with the supported
+enable-swift-package-manager:false spelling, preserving the intended CocoaPods
+path and Sentry integration. Podfile.lock was reconciled with existing Dart
+locks (including sentry_flutter 9.30.1/Sentry 8.58.4 and device_info_plus), not
+by removing Sentry. Five Flutter SDK-pinned package lock entries were resolved
+by the repository's pinned Flutter 3.47.2; no broad dependency upgrade was run.
+
+Vendored codec bytes and verbatim license notice text retain upstream trailing
+whitespace. The two path-scoped .gitattributes rules avoid rewriting those
+verified originals, while other new/modified source passes diff --check.
+
+No GitHub Actions run was triggered: this branch was not pushed or published.
+Local tests/builds are not physical-device/operator acceptance of this port.
+The prior 634 Three UK usability confirmation remains historical; fresh BLE/
+CCID registration, calls, SMS/audio and background testing remain required.
+There is no PushKit service or guaranteed idle/force-quit reachability.
