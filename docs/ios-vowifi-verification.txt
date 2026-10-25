@@ -7,8 +7,10 @@ Branch: feat/ios-reader-vowifi (local only)
 
 Preservation and source scope
 -----------------------------
-- 1842 core Go/module/public-certificate/carrier-data source files remain
+- 1840 core Go/module/public-certificate/carrier-data source files remain
   byte-for-byte identical to the user-confirmed integration-build-634 baseline.
+  Two test-only environment-variable names were generalized to remove the
+  previous fork's brand prefix; runtime and protocol behavior is unchanged.
 - 676 carrier profiles, 853 selectors and the separate 3HK template retained;
   fixed upstream ca030f836d858e59443e8957a844216c179d8677 comparison expanded
   1924 runtime profiles with zero changes.

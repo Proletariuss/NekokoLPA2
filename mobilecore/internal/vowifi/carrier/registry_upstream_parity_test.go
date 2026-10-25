@@ -13,7 +13,7 @@ import (
 // Opt-in before a vendored registry update. Compare every existing selector's
 // runtime projection, so metadata/APN additions cannot conceal an IMS change.
 func TestUpstreamRuntimeProjectionParity(t *testing.T) {
-	root := os.Getenv("CLARIVATE_CARRIER_COMPARE")
+	root := os.Getenv("VOWIFI_CARRIER_COMPARE")
 	if root == "" {
 		t.Skip("optional offline upstream audit")
 	}

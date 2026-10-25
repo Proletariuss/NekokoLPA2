@@ -46,7 +46,7 @@ func TestThreeHKAppOwnedTemplateUnchangedFor629(t *testing.T) {
 // Release gate against the preserved 628 registry. This intentionally checks
 // connection/security settings, not newly published optional media metadata.
 func TestWorkingCarrierConnectionPolicyAgainst628(t *testing.T) {
-	root := os.Getenv("CLARIVATE_CARRIER_BASELINE")
+	root := os.Getenv("VOWIFI_CARRIER_BASELINE")
 	if root == "" {
 		t.Skip("optional previous-release registry audit")
 	}
